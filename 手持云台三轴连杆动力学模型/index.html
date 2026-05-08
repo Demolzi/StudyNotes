@@ -1,0 +1,943 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>手持云台三轴连杆动力学模型 - 我的个人知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="我的个人知识库" class="md-header__button md-logo" aria-label="我的个人知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            我的个人知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              手持云台三轴连杆动力学模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="我的个人知识库" class="md-nav__button md-logo" aria-label="我的个人知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    我的个人知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    手持云台三轴连杆动力学模型
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    手持云台三轴连杆动力学模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 系统描述与广义坐标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 运动学分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 运动学分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 旋转矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 角速度递推
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 角速度递推">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        雅可比矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 质心线速度与动能简化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 动能与广义惯性矩阵
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 动能与广义惯性矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 系统总动能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 等效惯性张量（平行轴定理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 广义惯性矩阵组装
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 势能与重力向量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 科里奥利与离心力项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 完整动力学模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 系统描述与广义坐标
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 运动学分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 运动学分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 旋转矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 角速度递推
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 角速度递推">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        雅可比矩阵
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 质心线速度与动能简化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 动能与广义惯性矩阵
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 动能与广义惯性矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 系统总动能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 等效惯性张量（平行轴定理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 广义惯性矩阵组装
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 势能与重力向量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 科里奥利与离心力项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 完整动力学模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">手持云台三轴连杆动力学模型</h1>
+<p>针对手持云台（手持稳定器）的机械结构，采用拉格朗日‑欧拉法（Lagrange–Euler formulation）建立其三轴连杆动力学模型。该方法从系统的动能与势能出发，通过拉格朗日方程导出标准形式的运动微分方程，便于后续控制器设计与动力学仿真。</p>
+<hr />
+<h2 id="1">1. 系统描述与广义坐标</h2>
+<p>手持云台（手持稳定器）由三个旋转关节串联而成：从手柄起依次为 <strong>偏航轴（Yaw，<span class="arithmatex">\(\theta_1\)</span>）</strong>、<strong>横滚轴（Roll，<span class="arithmatex">\(\theta_2\)</span>）</strong>、<strong>俯仰轴（Pitch，<span class="arithmatex">\(\theta_3\)</span>）</strong>，末端安装相机负载。</p>
+<p>将手柄视为固定基座，建立惯性坐标系 <span class="arithmatex">\(\{\mathbf{0}\}\)</span>：<span class="arithmatex">\(Z_0\)</span> 竖直向上，<span class="arithmatex">\(X_0\)</span> 指向前方，<span class="arithmatex">\(Y_0\)</span> 按右手定则。</p>
+<p>假设三个关节的轴线始终交于同一点（云台中心），因此各连杆长度、偏置均为零，系统只有绕该固定点的转动。</p>
+<p><strong>广义坐标</strong>取为三个旋转角：</p>
+<div class="arithmatex">\[
+\mathbf{q} = [\,\theta_1,\ \theta_2,\ \theta_3\,]^\mathrm{T}
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\theta_1\)</span> — 偏航角，绕 <span class="arithmatex">\(Z_0\)</span> 轴；</li>
+<li><span class="arithmatex">\(\theta_2\)</span> — 横滚角，绕当前 <span class="arithmatex">\(X_1\)</span> 轴；</li>
+<li><span class="arithmatex">\(\theta_3\)</span> — 俯仰角，绕当前 <span class="arithmatex">\(Y_2\)</span> 轴。</li>
+</ul>
+<p>关节顺序为 <strong>Yaw → Roll → Pitch</strong>，符合 Z‑X‑Y 欧拉角设定。在各连杆上建立随体坐标系 <span class="arithmatex">\(\{\mathbf{1}\}, \{\mathbf{2}\}, \{\mathbf{3}\}\)</span>，原点均与云台中心重合，<span class="arithmatex">\(Z_i\)</span> 轴指向关节轴方向（连杆 <span class="arithmatex">\(i\)</span> 带动下一关节转动的轴）。</p>
+<hr />
+<h2 id="2">2. 运动学分析</h2>
+<h3 id="21">2.1 旋转矩阵</h3>
+<p>坐标系间的旋转矩阵为</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{R}_{01} &amp;= \mathbf{R}_z(\theta_1) = \begin{bmatrix} \cos\theta_1 &amp; -\sin\theta_1 &amp; 0 \\ \sin\theta_1 &amp; \cos\theta_1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \\
+\mathbf{R}_{12} &amp;= \mathbf{R}_x(\theta_2) = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; \cos\theta_2 &amp; -\sin\theta_2 \\ 0 &amp; \sin\theta_2 &amp; \cos\theta_2 \end{bmatrix} \\
+\mathbf{R}_{23} &amp;= \mathbf{R}_y(\theta_3) = \begin{bmatrix} \cos\theta_3 &amp; 0 &amp; \sin\theta_3 \\ 0 &amp; 1 &amp; 0 \\ -\sin\theta_3 &amp; 0 &amp; \cos\theta_3 \end{bmatrix}
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathbf{R}_z,\mathbf{R}_x,\mathbf{R}_y\)</span> 为绕对应轴的基本旋转矩阵。</p>
+<p>从基座到连杆 <span class="arithmatex">\(i\)</span> 的姿态为</p>
+<div class="arithmatex">\[
+\mathbf{R}_{0i} = \mathbf{R}_{01}\,\mathbf{R}_{12}\,\cdots
+\]</div>
+<h3 id="22">2.2 角速度递推</h3>
+<p>角速度在随体坐标系中的表达遵循递推公式：</p>
+<div class="arithmatex">\[
+\boldsymbol{\omega}_i^{(i)} = \mathbf{R}_{i,i-1}\,\boldsymbol{\omega}_{i-1}^{(i-1)} + \dot{\theta}_i\,\mathbf{z}_i^{(i)},
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathbf{z}_i^{(i)}\)</span> 是关节 <span class="arithmatex">\(i\)</span> 的转轴在自身坐标系 <span class="arithmatex">\(\{\mathbf{i}\}\)</span> 中的单位向量，且 <span class="arithmatex">\(\mathbf{R}_{i,i-1} = \mathbf{R}_{i-1,i}^\mathrm{T}\)</span>。</p>
+<p><strong>Yaw 轴</strong>：<span class="arithmatex">\(\mathbf{z}_1^{(1)} = [0,\,0,\,1]^\mathrm{T}\)</span>，<span class="arithmatex">\(\boldsymbol{\omega}_0^{(0)} = \mathbf{0}\)</span>，故</p>
+<div class="arithmatex">\[
+\boldsymbol{\omega}_1^{(1)} = \begin{bmatrix} 0 \\ 0 \\ \dot\theta_1 \end{bmatrix}.
+\]</div>
+<p><strong>Roll 轴</strong>：<span class="arithmatex">\(\mathbf{z}_2^{(2)} = [1,\,0,\,0]^\mathrm{T}\)</span>，<span class="arithmatex">\(\mathbf{R}_{21} = \mathbf{R}_x(\theta_2)^\mathrm{T}\)</span>，则</p>
+<div class="arithmatex">\[
+\boldsymbol{\omega}_2^{(2)} = \mathbf{R}_x(\theta_2)^\mathrm{T}  \begin{bmatrix} 0 \\ 0 \\ \dot\theta_1 \end{bmatrix}  + \begin{bmatrix} \dot\theta_2 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} \dot\theta_2 \\ \dot\theta_1\sin\theta_2 \\ \dot\theta_1\cos\theta_2 \end{bmatrix}.
+\]</div>
+<p><strong>Pitch 轴</strong>：<span class="arithmatex">\(\mathbf{z}_3^{(3)} = [0,\,1,\,0]^\mathrm{T}\)</span>，<span class="arithmatex">\(\mathbf{R}_{32} = \mathbf{R}_y(\theta_3)^\mathrm{T}\)</span>，代入得</p>
+<div class="arithmatex">\[
+\boldsymbol{\omega}_3^{(3)} = \mathbf{R}_y(\theta_3)^\mathrm{T}  \begin{bmatrix} \dot\theta_2 \\ \dot\theta_1\sin\theta_2 \\ \dot\theta_1\cos\theta_2 \end{bmatrix}  + \begin{bmatrix} 0 \\ \dot\theta_3 \\ 0 \end{bmatrix}=\begin{bmatrix}  \dot\theta_2\cos\theta_3 - \dot\theta_1\cos\theta_2\sin\theta_3 \\[2pt]  \dot\theta_3 + \dot\theta_1\sin\theta_2 \\[2pt]  \dot\theta_2\sin\theta_3 + \dot\theta_1\cos\theta_2\cos\theta_3  \end{bmatrix}.
+\]</div>
+<h4 id="_2">雅可比矩阵</h4>
+<p>将以上角速度均写作 <span class="arithmatex">\(\boldsymbol{\omega}_i^{(i)} = \mathbf{J}_{\omega i}^{(i)}\dot{\mathbf{q}}\)</span> 的形式，可得</p>
+<div class="arithmatex">\[
+\mathbf{J}_{\omega1}^{(1)} =
+\begin{bmatrix}
+0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0
+\end{bmatrix},\qquad
+\mathbf{J}_{\omega2}^{(2)} =
+\begin{bmatrix}
+0 &amp; 1 &amp; 0 \\
+\sin\theta_2 &amp; 0 &amp; 0 \\
+\cos\theta_2 &amp; 0 &amp; 0
+\end{bmatrix},
+\]</div>
+<div class="arithmatex">\[
+\mathbf{J}_{\omega3}^{(3)} =
+\begin{bmatrix}
+-\cos\theta_2\sin\theta_3 &amp; \cos\theta_3 &amp; 0 \\
+\sin\theta_2 &amp; 0 &amp; 1 \\
+\cos\theta_2\cos\theta_3 &amp; \sin\theta_3 &amp; 0
+\end{bmatrix}.
+\]</div>
+<h3 id="23">2.3 质心线速度与动能简化</h3>
+<p>连杆 <span class="arithmatex">\(i\)</span> 的质心在随体坐标系 <span class="arithmatex">\(\{\mathbf{i}\}\)</span> 中的坐标为 <span class="arithmatex">\(\mathbf{r}_i = [x_i,\, y_i,\, z_i]^\mathrm{T}\)</span>，其绝对线速度</p>
+<div class="arithmatex">\[
+\mathbf{v}_{ci} = \boldsymbol{\omega}_i \times (\mathbf{R}_{0i}\mathbf{r}_i).
+\]</div>
+<p>利用旋转不变性，质心动能项可借助反对称矩阵 <span class="arithmatex">\(\mathbf{S}(\cdot)\)</span> 在随体坐标系中表达：</p>
+<div class="arithmatex">\[
+\frac{1}{2}m_i \|\mathbf{v}_{ci}\|^2
+= \frac{1}{2} (\boldsymbol{\omega}_i^{(i)})^\mathrm{T}
+\Bigl[ m_i \mathbf{S}(\mathbf{r}_i)^\mathrm{T}\mathbf{S}(\mathbf{r}_i) \Bigr]
+\boldsymbol{\omega}_i^{(i)}.
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathbf{S}(\mathbf{r})\)</span> 为叉乘反对称矩阵，满足 <span class="arithmatex">\(\mathbf{S}(\mathbf{r})\mathbf{a} = \mathbf{r}\times\mathbf{a}\)</span>。此变换将线速度动能与角速度直接关联，便于后续组装。</p>
+<hr />
+<h2 id="3">3. 动能与广义惯性矩阵</h2>
+<h3 id="31">3.1 系统总动能</h3>
+<p>系统总动能由三根连杆的转动动能与质心线速度动能构成：</p>
+<div class="arithmatex">\[
+K = \frac{1}{2}J_1\dot\theta_1^2
+    + \frac{1}{2}(\boldsymbol{\omega}_2^{(2)})^\mathrm{T} \mathbf{I}_2^{\text{tot}} \boldsymbol{\omega}_2^{(2)}
+    + \frac{1}{2}(\boldsymbol{\omega}_3^{(3)})^\mathrm{T} \mathbf{I}_3^{\text{tot}} \boldsymbol{\omega}_3^{(3)},
+\]</div>
+<p>式中</p>
+<ul>
+<li><span class="arithmatex">\(J_1 = I_{1,zz} + m_1(x_1^2 + y_1^2)\)</span> ——连杆1（偏航部分）绕 <span class="arithmatex">\(Z_0\)</span> 轴的总有效惯量（因其质心只有绕 <span class="arithmatex">\(Z_0\)</span> 的转动和水平偏移）；</li>
+<li><span class="arithmatex">\(\mathbf{I}_i^{\text{tot}}= \mathbf{I}_i^{(i)} + m_i\,\mathbf{S}(\mathbf{r}_i)^\mathrm{T}\mathbf{S}(\mathbf{r}_i)\)</span> 为第 <span class="arithmatex">\(i\)</span> 连杆等效到云台中心的广义惯性矩阵（对称正定），在 <span class="arithmatex">\(\{\mathbf{i}\}\)</span> 中表示，其元素记作 <span class="arithmatex">\(I_{i,xx},I_{i,xy},\dots\)</span>，</li>
+</ul>
+<h3 id="32">3.2 等效惯性张量（平行轴定理）</h3>
+<p>对于连杆 <span class="arithmatex">\(i\)</span>，已知其关于自身质心的惯性张量 <span class="arithmatex">\(\mathbf{I}_i^{(i)}\)</span>（对称正定），平移至旋转中心（云台交汇点）需使用<strong>平行轴定理（Steiner 定理）</strong>：</p>
+<div class="arithmatex">\[
+\mathbf{I}_i^{\text{tot}} = \mathbf{I}_i^{(i)}
++ m_i\bigl( (\mathbf{r}_i^\mathrm{T}\mathbf{r}_i)\mathbf{E} - \mathbf{r}_i\mathbf{r}_i^\mathrm{T} \bigr).
+\]</div>
+<p>利用反对称矩阵的性质 <span class="arithmatex">\(\mathbf{S}(\mathbf{r}_i)^\mathrm{T}\mathbf{S}(\mathbf{r}_i) = (\mathbf{r}_i^\mathrm{T}\mathbf{r}_i)\mathbf{E} - \mathbf{r}_i\mathbf{r}_i^\mathrm{T}\)</span>，上式即</p>
+<div class="arithmatex">\[
+\mathbf{I}_i^{\text{tot}} = \mathbf{I}_i^{(i)} + m_i\,\mathbf{S}(\mathbf{r}_i)^\mathrm{T}\mathbf{S}(\mathbf{r}_i),
+\]</div>
+<h3 id="33">3.3 广义惯性矩阵组装</h3>
+<p>将角速度用雅可比表达，动能可写为二次型</p>
+<div class="arithmatex">\[
+K = \frac{1}{2}\dot{\mathbf{q}}^\mathrm{T} \mathbf{M}(\mathbf{q}) \dot{\mathbf{q}},
+\]</div>
+<p>其中广义惯性矩阵</p>
+<div class="arithmatex">\[
+\mathbf{M}(\mathbf{q}) = J_1\mathbf{e}_1\mathbf{e}_1^\mathrm{T}
+                      + \mathbf{J}_{\omega2}^{(2)\mathrm{T}} \mathbf{I}_2^{\text{tot}} \mathbf{J}_{\omega2}^{(2)}
+                      + \mathbf{J}_{\omega3}^{(3)\mathrm{T}} \mathbf{I}_3^{\text{tot}} \mathbf{J}_{\omega3}^{(3)}.
+\]</div>
+<p>这里 <span class="arithmatex">\(\mathbf{e}_1 = [1,0,0]^\mathrm{T}\)</span>，用于提取偏航轴惯量。</p>
+<p>将雅可比代入，定义以下便于记忆的向量：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{v}_1 &amp;= \bigl[ -\cos\theta_2\sin\theta_3,\; \sin\theta_2,\; \cos\theta_2\cos\theta_3 \bigr]^\mathrm{T},\\
+\mathbf{v}_2 &amp;= \bigl[ \cos\theta_3,\; 0,\; \sin\theta_3 \bigr]^\mathrm{T},\\
+\mathbf{v}_3 &amp;= \bigl[ 0,\; 1,\; 0 \bigr]^\mathrm{T}.
+\end{aligned}
+\]</div>
+<p>这些向量分别对应 <span class="arithmatex">\(\mathbf{J}_{\omega3}^{(3)}\)</span> 的第 1, 2, 3 列。于是矩阵 <span class="arithmatex">\(\mathbf{M}\)</span> 的各元素可表达为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+M_{11} &amp;= J_1 + I_{2,yy}s_2^2 + 2I_{2,yz}s_2c_2 + I_{2,zz}c_2^2
+          + \mathbf{v}_1^\mathrm{T}\mathbf{I}_3^{\text{tot}}\mathbf{v}_1, \\[4pt]
+M_{22} &amp;= I_{2,xx} + \mathbf{v}_2^\mathrm{T}\mathbf{I}_3^{\text{tot}}\mathbf{v}_2, \\[4pt]
+M_{33} &amp;= I_{3,yy}, \\[4pt]
+M_{12} &amp;= s_2 I_{2,xy} + c_2 I_{2,xz} + \mathbf{v}_1^\mathrm{T}\mathbf{I}_3^{\text{tot}}\mathbf{v}_2, \\[4pt]
+M_{13} &amp;= \mathbf{v}_1^\mathrm{T}\mathbf{I}_3^{\text{tot}}\mathbf{v}_3, \\[4pt]
+M_{23} &amp;= \mathbf{v}_2^\mathrm{T}\mathbf{I}_3^{\text{tot}}\mathbf{v}_3,
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(s_i = \sin\theta_i,\; c_i = \cos\theta_i\)</span>，<span class="arithmatex">\(\mathbf{I}_2^{\text{tot}} = [I_{2,kl}]\)</span>，<span class="arithmatex">\(\mathbf{I}_3^{\text{tot}} = [I_{3,kl}]\)</span>。</p>
+<p>由表达可见，<span class="arithmatex">\(\mathbf{M}\)</span> 仅依赖于 <span class="arithmatex">\(\theta_2,\theta_3\)</span>，与 <span class="arithmatex">\(\theta_1\)</span> 无关，这是旋转对称性的直接结果。</p>
+<hr />
+<h2 id="4">4. 势能与重力向量</h2>
+<p>取重力加速度矢量在惯性系为 <span class="arithmatex">\(\mathbf{g}_0 = [0,\,0,\,-g]^\mathrm{T}\)</span> （<span class="arithmatex">\(Z_0\)</span> 向上）。连杆 <span class="arithmatex">\(i\)</span> 质心的 <span class="arithmatex">\(Z_0\)</span> 坐标为 <span class="arithmatex">\(z_{ci} = \mathbf{e}_z^\mathrm{T} \mathbf{R}_{0i} \mathbf{r}_i\)</span>。利用旋转矩阵的第三行（即 <span class="arithmatex">\(Z_0\)</span> 在各随体坐标系的投影），可以直接写出：</p>
+<p><strong>连杆 1</strong>：<span class="arithmatex">\(\mathbf{R}_{01}\)</span> 第三行 <span class="arithmatex">\([0,\,0,\,1]\)</span>，故 <span class="arithmatex">\(z_{c1}=z_1\)</span>（常数，不影响动力学）。</p>
+<p><strong>连杆 2</strong>：<span class="arithmatex">\(\mathbf{R}_{02} = \mathbf{R}_z(\theta_1)\mathbf{R}_x(\theta_2)\)</span>，第三行为 <span class="arithmatex">\([0,\;\sin\theta_2,\;\cos\theta_2]\)</span>，于是</p>
+<div class="arithmatex">\[
+z_{c2} = y_2\sin\theta_2 + z_2\cos\theta_2.
+\]</div>
+<p><strong>连杆 3</strong>：<span class="arithmatex">\(\mathbf{R}_{03} = \mathbf{R}_{01}\mathbf{R}_{12}\mathbf{R}_{23}\)</span>，第三行为<span class="arithmatex">\([\, -\cos\theta_2\sin\theta_3,\; \sin\theta_2,\; \cos\theta_2\cos\theta_3 \,]\)</span>，因此</p>
+<div class="arithmatex">\[
+z_{c3} = -x_3\cos\theta_2\sin\theta_3 + y_3\sin\theta_2 + z_3\cos\theta_2\cos\theta_3.
+\]</div>
+<p>总势能 <span class="arithmatex">\(P = \sum m_i g z_{ci}\)</span>（略去常数项）：</p>
+<div class="arithmatex">\[
+P = m_2 g (y_2 s_2 + z_2 c_2) + m_3 g (-x_3 c_2 s_3 + y_3 s_2 + z_3 c_2 c_3).
+\]</div>
+<p>重力向量 <span class="arithmatex">\(\mathbf{G}(\mathbf{q}) = \partial P / \partial \mathbf{q}\)</span>：</p>
+<div class="arithmatex">\[
+\mathbf{G}(\mathbf{q}) =
+\begin{bmatrix}
+0 \\[4pt]
+m_2 g (y_2 c_2 - z_2 s_2) + m_3 g\bigl[ y_3 c_2 + s_2 (x_3 s_3 - z_3 c_3) \bigr] \\[4pt]
+m_3 g\,c_2 ( - x_3 c_3 - z_3 s_3 )
+\end{bmatrix}.
+\]</div>
+<hr />
+<h2 id="5">5. 科里奥利与离心力项</h2>
+<p>拉格朗日方程为</p>
+<div class="arithmatex">\[
+\frac{\mathrm{d}}{\mathrm{d}t}\Bigl(\frac{\partial K}{\partial\dot{\mathbf{q}}}\Bigr)
+- \frac{\partial K}{\partial\mathbf{q}} + \frac{\partial P}{\partial\mathbf{q}}
+= \boldsymbol{\tau},
+\]</div>
+<p>代入 <span class="arithmatex">\(K = \tfrac{1}{2}\dot{\mathbf{q}}^\mathrm{T}\mathbf{M}\dot{\mathbf{q}}\)</span>，可得标准形式：</p>
+<div class="arithmatex">\[
+\mathbf{M}(\mathbf{q})\ddot{\mathbf{q}} + \mathbf{C}(\mathbf{q},\dot{\mathbf{q}})\dot{\mathbf{q}} + \mathbf{G}(\mathbf{q}) = \boldsymbol{\tau},
+\]</div>
+<p>其中 <span class="arithmatex">\(\boldsymbol{\tau}=[\tau_1,\tau_2,\tau_3]^\mathrm{T}\)</span> 为关节力矩，<span class="arithmatex">\(\mathbf{C}\dot{\mathbf{q}}\)</span> 为科里奥利和离心力项。</p>
+<p><span class="arithmatex">\(\mathbf{C}\)</span> 矩阵的元素由 Christoffel 符号给出：</p>
+<div class="arithmatex">\[
+C_{ij} = \sum_{k=1}^{3} \Gamma_{ijk}\,\dot{q}_k,\qquad
+\Gamma_{ijk} = \frac{1}{2}\Bigl(
+\frac{\partial M_{ij}}{\partial q_k} + \frac{\partial M_{ik}}{\partial q_j}
+- \frac{\partial M_{kj}}{\partial q_i}
+\Bigr).
+\]</div>
+<p>因为 <span class="arithmatex">\(\mathbf{M}\)</span> 与 <span class="arithmatex">\(\theta_1\)</span> 无关，所以所有对 <span class="arithmatex">\(\theta_1\)</span> 的偏导为零，这大大减少了非零项。在实际仿真与控制中，常用向量形式：</p>
+<div class="arithmatex">\[
+\mathbf{c}(\mathbf{q},\dot{\mathbf{q}}) = \dot{\mathbf{M}}\dot{\mathbf{q}} - \frac{\partial K}{\partial\mathbf{q}},
+\]</div>
+<p>以提高计算效率。</p>
+<p><strong>重要性质</strong>：由 Christoffel 符号的定义可证</p>
+<div class="arithmatex">\[
+\dot{\mathbf{M}}(\mathbf{q}) - 2\mathbf{C}(\mathbf{q},\dot{\mathbf{q}}) \ \text{是反对称矩阵}.
+\]</div>
+<hr />
+<h2 id="6">6. 完整动力学模型</h2>
+<p>收集以上结果，手持云台的三轴动力学方程为</p>
+<div class="arithmatex">\[
+\boxed{
+\mathbf{M}(\theta_2,\theta_3)\,\ddot{\mathbf{q}}
++ \mathbf{C}(\theta_2,\theta_3,\dot{\theta}_2,\dot{\theta}_3)\,\dot{\mathbf{q}}
++ \mathbf{G}(\theta_2,\theta_3)
+= \boldsymbol{\tau}
+}.
+\]</div>
+<p>其中</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{M}\)</span> 由 (3) 式给出，其元素表达式见 3.3 节；</li>
+<li><span class="arithmatex">\(\mathbf{C}\)</span> 可由 Christoffel 符号或 <span class="arithmatex">\(\dot{\mathbf{M}}\)</span> 导出，且满足 <span class="arithmatex">\(\dot{\mathbf{M}} - 2\mathbf{C}\)</span> 反对称；</li>
+<li><span class="arithmatex">\(\mathbf{G}\)</span> 由 (4) 式给出。</li>
+</ul>
+<p><strong>模型特点</strong>：</p>
+<ul>
+<li>惯性矩阵高度耦合，横滚与俯仰运动会改变偏航轴的等效惯量；</li>
+<li>重力项只作用在横滚和俯仰轴上，偏航轴无重力回中力矩（在质心位于轴线上时成立）；</li>
+<li>所有参数（质量、质心位置、惯性张量）均可通过 CAD 数据或参数辨识实验得到。</li>
+</ul>
+<p><strong>扰动影响</strong>（供扩展）：若手柄存在运动（角速度 <span class="arithmatex">\(\boldsymbol{\omega}_0\)</span>、线加速度 <span class="arithmatex">\(\mathbf{a}_0\)</span>），可在拉格朗日函数中引入动基座运动项，等效力矩中将出现类似 <span class="arithmatex">\(\mathbf{J}_i^\mathrm{T} m_i \mathbf{a}_0\)</span> 的扰动项，用于前馈补偿。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
