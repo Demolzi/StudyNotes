@@ -1,0 +1,17 @@
+name publish site
+on
+  push
+    branches
+      - main  # 确保你的主分支叫 main
+permissions
+  contents write
+jobs
+  deploy
+    runs-on ubuntu-latest
+    steps
+      - uses actionscheckout@v4
+      - uses actionssetup-python@v4
+        with
+          python-version 3.x
+      - run pip install mkdocs-material
+      - run mkdocs gh-deploy --force
